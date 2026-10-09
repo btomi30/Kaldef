@@ -14,7 +14,20 @@
 
 <style>
 
-:root{--bg:#faf7fb;--panel:#fff;--text:#27202d;--muted:#756b7b;--line:#e8dfea;--brand:#6A4FAD;--brand2:#9B57A3;--good:#6A4FAD;--bad:#EC8574;--warn:#EE8306;--accent:#E55490;--shadow:0 10px 28px rgba(65,42,82,.08);--r:18px}
+:root{
+  --bg:#faf7fb;
+  --panel:#fff;
+  --text:#27202d;
+  --muted:#756b7b;
+  --line:#e8dfea;
+  --brand:#6A4FAD;
+  --brand2:#9B57A3;
+  --good:#6A4FAD;
+  --bad:#EC8574;
+  --warn:#EE8306;
+  --accent:#E55490;
+  --shadow:0 10px 28px rgba(65,42,82,.08);
+  --r:18px}
 
 @media(prefers-color-scheme:dark){:root{--bg:#17131c;--panel:#211b29;--text:#f7f0fa;--muted:#bdb0c5;--line:#3b3045;--brand:#b39be8;--brand2:#d39ad9;--good:#b39be8;--bad:#ff9b8d;--warn:#ffb65c;--accent:#f28bb7;--shadow:none}}
 
@@ -68,93 +81,92 @@
 
 <section id="dashboard" class="view active">
 
-  <div class="grid">
+ <div class="grid">
+   <article class="card hero">
 
-    <article class="card hero">
+     <div class="hero-layout">
 
-      <div class="hero-layout">
+         <div class="goal-focus">
 
-        <div class="goal-focus">
+          <div class="goal-eyebrow">A célod felé</div>
 
-          <div class="goal-eyebrow">A célod felé</div>
+          <div class="goal-ring" id="goalRing" role="progressbar" aria-label="Energiacél teljesítése" aria-valuemin="0" aria-valuemax="100">
 
-          <div class="goal-ring" id="goalRing" role="progressbar" aria-label="Energiacél teljesítése" aria-valuemin="0" aria-valuemax="100">
+             <div class="goal-ring-content"><div class="goal-ring-number" id="heroRemaining">–</div><div class="goal-ring-unit">kcal van hátra</div><div class="goal-ring-caption" id="ringPercent">0% teljesítve</div></div>
 
-            <div class="goal-ring-content"><div class="goal-ring-number" id="heroRemaining">–</div><div class="goal-ring-unit">kcal van hátra</div><div class="goal-ring-caption" id="ringPercent">0% teljesítve</div></div>
+          </div>
 
-          </div>
+         <div class="positive-message" id="heroMessage">Minden rögzített nap számít.</div>
 
-          <div class="positive-message" id="heroMessage">Minden rögzített nap számít.</div>
+         <div class="sub">Becsült érték a testsúlycél alapján</div>
 
-          <div class="sub">Becsült érték a testsúlycél alapján</div>
+         </div>
 
-        </div>
+         <div class="hero-detail">
 
-        <div class="hero-detail">
+          <div class="kicker">Napi haladás, utolsó 14 nap</div>
 
-          <div class="kicker">Napi haladás, utolsó 14 nap</div>
+           <h2>Így épül fel a célhoz vezető utad</h2>
 
-          <h2>Így épül fel a célhoz vezető utad</h2>
+           <span class="sub">A zöld oszlopok a napi deficitet, a pirosak a napi többletet mutatják. A hátralévő cél mindig pozitív szám.</span>
 
-          <span class="sub">A zöld oszlopok a napi deficitet, a pirosak a napi többletet mutatják. A hátralévő cél mindig pozitív szám.</span>
+           <div id="energyChart"></div>
 
-          <div id="energyChart"></div>
+           <div class="legend"><span><i style="background:var(--brand)"></i>Deficit</span><span><i style="background:var(--bad)"></i>Többlet</span></div>
 
-          <div class="legend"><span><i style="background:var(--brand)"></i>Deficit</span><span><i style="background:var(--bad)"></i>Többlet</span></div>
+           <div class="mini-progress"><span id="heroProgressBar"></span></div>
 
-          <div class="mini-progress"><span id="heroProgressBar"></span></div>
+           <div class="hero-summary"><div><span class="sub">Teljes becsült cél</span><strong id="heroGoal">–</strong></div><div><span class="sub">Eddig teljesített</span><strong id="heroDone">–</strong></div><div><span class="sub">Cél teljesítése</span><strong id="heroPct">–</strong></div></div>
 
-          <div class="hero-summary"><div><span class="sub">Teljes becsült cél</span><strong id="heroGoal">–</strong></div><div><span class="sub">Eddig teljesített</span><strong id="heroDone">–</strong></div><div><span class="sub">Cél teljesítése</span><strong id="heroPct">–</strong></div></div>
+           <div class="encouragement"><span class="encouragement-icon">✓</span><span id="encouragementText">A következetesség fontosabb, mint egyetlen tökéletes nap.</span></div>
 
-          <div class="encouragement"><span class="encouragement-icon">✓</span><span id="encouragementText">A következetesség fontosabb, mint egyetlen tökéletes nap.</span></div>
+         </div>
 
-        </div>
+       </div>
 
-      </div>
+     </article>
 
-    </article>
+     <article class="card span-3"><div class="kicker">Jelenlegi testsúly</div><div class="big" id="dWeight">–</div><div class="sub" id="dWeightDate">Nincs adat</div></article>
 
-    <article class="card span-3"><div class="kicker">Jelenlegi testsúly</div><div class="big" id="dWeight">–</div><div class="sub" id="dWeightDate">Nincs adat</div></article>
+     <article class="card span-3"><div class="kicker">Céltestsúly</div><div class="big" id="dTarget">–</div><div class="sub" id="dDifference">–</div></article>
 
-    <article class="card span-3"><div class="kicker">Céltestsúly</div><div class="big" id="dTarget">–</div><div class="sub" id="dDifference">–</div></article>
+     <article class="card span-3"><div class="kicker">Aktuális BMI</div><div class="big" id="dBmi">–</div><div class="sub" id="dBmiCat">–</div></article>
 
-    <article class="card span-3"><div class="kicker">Aktuális BMI</div><div class="big" id="dBmi">–</div><div class="sub" id="dBmiCat">–</div></article>
-
-    <article class="card span-3 balance neutral" id="todayCard"><div class="kicker">Mai kalóriamérleg</div><div class="big" id="dToday">–</div><div class="sub" id="dTodayText">Még nincs mai bejegyzés</div></article>
-
-
-
-    <article class="card span-7">
-
-      <h2 class="section-title">Haladás a célhoz</h2>
-
-      <div class="progress-head"><strong id="pStart">–</strong><strong id="pTarget">–</strong></div>
-
-      <div class="progress-track" role="progressbar" aria-label="Haladás" aria-valuemin="0" aria-valuemax="100"><div class="progress-fill" id="pFill"></div></div>
-
-      <div class="sub" id="pBasis">A ténylegesen rögzített testsúly alapján</div>
-
-      <div class="progress-stats"><div><span class="sub">Eddigi változás</span><strong id="pLost">–</strong></div><div><span class="sub">Hátralévő</span><strong id="pLeft">–</strong></div><div><span class="sub">Teljesítve</span><strong id="pPercent">–</strong></div></div>
-
-    </article>
-
-    <article class="card span-5" id="cumCard">
-
-      <div class="kicker">Kumulált energiamérleg</div><div class="big" id="dCumulative">–</div>
-
-      <div class="sub" id="dTheory">Elméleti testsúlyváltozás: –</div>
-
-      <div class="callout" style="margin-top:15px">A kalória- és testsúlyváltozás számítása becslés. A tényleges változást számos tényező befolyásolja.</div>
-
-    </article>
+     <article class="card span-3 balance neutral" id="todayCard"><div class="kicker">Mai kalóriamérleg</div><div class="big" id="dToday">–</div><div class="sub" id="dTodayText">Még nincs mai bejegyzés</div></article>
 
 
 
-    <article class="card span-6"><h2 class="section-title">BMI és testsúlycél</h2><div class="metric-grid"><div class="metric"><span class="sub">Aktuális BMI</span><strong id="bmiNow">–</strong></div><div class="metric"><span class="sub">Cél-BMI</span><strong id="bmiTarget">–</strong></div><div class="metric"><span class="sub">Elméleti energiaigény</span><strong id="goalKcal">–</strong></div></div><p class="notice">A BMI egyszerű populációs mutató, nem a testösszetétel pontos mérőszáma. Az 1 kg ≈ 7700 kcal átváltás szintén becslés.</p></article>
+     <article class="card span-7">
 
-    <article class="card span-6"><h2 class="section-title">Összehasonlítás referencia-populációval</h2><div id="regionCompare" class="callout">Add meg az adataidat a referenciához.</div><p class="notice" id="regionSource"></p></article>
+       <h2 class="section-title">Haladás a célhoz</h2>
 
-  </div>
+       <div class="progress-head"><strong id="pStart">–</strong><strong id="pTarget">–</strong></div>
+
+       <div class="progress-track" role="progressbar" aria-label="Haladás" aria-valuemin="0" aria-valuemax="100"><div class="progress-fill" id="pFill"></div></div>
+
+      <div class="sub" id="pBasis">A ténylegesen rögzített testsúly alapján</div>
+
+       <div class="progress-stats"><div><span class="sub">Eddigi változás</span><strong id="pLost">–</strong></div><div><span class="sub">Hátralévő</span><strong id="pLeft">–</strong></div><div><span class="sub">Teljesítve</span><strong id="pPercent">–</strong></div></div>
+
+     </article>
+
+     <article class="card span-5" id="cumCard">
+
+     <div class="kicker">Kumulált energiamérleg</div><div class="big" id="dCumulative">–</div>
+
+       <div class="sub" id="dTheory">Elméleti testsúlyváltozás: –</div>
+
+       <div class="callout" style="margin-top:15px">A kalória- és testsúlyváltozás számítása becslés. A tényleges változást számos tényező befolyásolja.</div>
+
+     </article>
+
+
+
+     <article class="card span-6"><h2 class="section-title">BMI és testsúlycél</h2><div class="metric-grid"><div class="metric"><span class="sub">Aktuális BMI</span><strong id="bmiNow">–</strong></div><div class="metric"><span class="sub">Cél-BMI</span><strong id="bmiTarget">–</strong></div><div class="metric"><span class="sub">Elméleti energiaigény</span><strong id="goalKcal">–</strong></div></div><p class="notice">A BMI egyszerű populációs mutató, nem a testösszetétel pontos mérőszáma. Az 1 kg ≈ 7700 kcal átváltás szintén becslés.</p></article>
+
+     <article class="card span-6"><h2 class="section-title">Összehasonlítás referencia-populációval</h2><div id="regionCompare" class="callout">Add meg az adataidat a referenciához.</div><p class="notice" id="regionSource"></p></article>
+
+   </div>
 
 </section>
 
@@ -162,15 +174,15 @@
 
 <section id="log" class="view">
 
-  <div class="grid">
+   <div class="grid">
 
-    <article class="card span-5"><h2 class="section-title">Mai nap</h2><form id="energyForm" class="form-grid"><div class="field full"><label for="logDate">Dátum</label><input id="logDate" type="date" required></div><div class="field full"><label for="burned">Mennyi kalóriát égettél el?</label><div class="input-wrap"><input id="burned" type="number" min="0" max="20000" step="1" inputmode="numeric" required><span class="suffix">kcal</span></div><span class="sub">Manuális adat, például Garminból</span></div><div class="field full"><label for="eaten">Mennyi kalóriát fogyasztottál?</label><div class="input-wrap"><input id="eaten" type="number" min="0" max="20000" step="1" inputmode="numeric" required><span class="suffix">kcal</span></div><span class="sub">Manuális adat, például Yazio-ból</span></div><div class="field full"><button class="btn" type="submit">Nap mentése</button></div></form></article>
+     <article class="card span-5"><h2 class="section-title">Mai nap</h2><form id="energyForm" class="form-grid"><div class="field full"><label for="logDate">Dátum</label><input id="logDate" type="date" required></div><div class="field full"><label for="burned">Mennyi kalóriát égettél el?</label><div class="input-wrap"><input id="burned" type="number" min="0" max="20000" step="1" inputmode="numeric" required><span class="suffix">kcal</span></div><span class="sub">Manuális adat, például Garminból</span></div><div class="field full"><label for="eaten">Mennyi kalóriát fogyasztottál?</label><div class="input-wrap"><input id="eaten" type="number" min="0" max="20000" step="1" inputmode="numeric" required><span class="suffix">kcal</span></div><span class="sub">Manuális adat, például Yazio-ból</span></div><div class="field full"><button class="btn" type="submit">Nap mentése</button></div></form></article>
 
-    <article class="card span-7 balance neutral" id="previewCard"><h2 class="section-title">Napi energiamérleg</h2><div class="balance-list"><div class="balance-row"><span>🔥 Elégetett</span><strong id="prevBurned">0 kcal</strong></div><div class="balance-row"><span>🍴 Bevitt</span><strong id="prevEaten">0 kcal</strong></div><div class="balance-row"><span id="prevLabel">➖ Egyenleg</span><strong class="big" id="prevBalance">0 kcal</strong></div></div><div class="callout" style="margin-top:16px">Negatív érték = deficit. Pozitív érték = többlet.</div></article>
+     <article class="card span-7 balance neutral" id="previewCard"><h2 class="section-title">Napi energiamérleg</h2><div class="balance-list"><div class="balance-row"><span>🔥 Elégetett</span><strong id="prevBurned">0 kcal</strong></div><div class="balance-row"><span>🍴 Bevitt</span><strong id="prevEaten">0 kcal</strong></div><div class="balance-row"><span id="prevLabel">➖ Egyenleg</span><strong class="big" id="prevBalance">0 kcal</strong></div></div><div class="callout" style="margin-top:16px">Negatív érték = deficit. Pozitív érték = többlet.</div></article>
 
-    <article class="card span-12"><h2 class="section-title">Korábbi napok</h2><div id="energyEntries" class="entries"></div></article>
+     <article class="card span-12"><h2 class="section-title">Korábbi napok</h2><div id="energyEntries" class="entries"></div></article>
 
-  </div>
+   </div>
 
 </section>
 
@@ -178,15 +190,15 @@
 
 <section id="weight" class="view">
 
-  <div class="grid">
+   <div class="grid">
 
-    <article class="card span-4"><h2 class="section-title">Testsúly rögzítése</h2><form id="weightForm" class="form-grid"><div class="field full"><label for="weightDate">Dátum</label><input id="weightDate" type="date" required></div><div class="field full"><label for="weightValue">Mai testsúly</label><div class="input-wrap"><input id="weightValue" type="number" min="30" max="350" step="0.1" inputmode="decimal" required><span class="suffix">kg</span></div></div><div class="field full"><button class="btn" type="submit">Testsúly mentése</button></div></form></article>
+     <article class="card span-4"><h2 class="section-title">Testsúly rögzítése</h2><form id="weightForm" class="form-grid"><div class="field full"><label for="weightDate">Dátum</label><input id="weightDate" type="date" required></div><div class="field full"><label for="weightValue">Mai testsúly</label><div class="input-wrap"><input id="weightValue" type="number" min="30" max="350" step="0.1" inputmode="decimal" required><span class="suffix">kg</span></div></div><div class="field full"><button class="btn" type="submit">Testsúly mentése</button></div></form></article>
 
-    <article class="card span-8"><h2 class="section-title">Testsúlytörténet, utolsó 30 nap</h2><div id="chartWrap"></div></article>
+     <article class="card span-8"><h2 class="section-title">Testsúlytörténet, utolsó 30 nap</h2><div id="chartWrap"></div></article>
 
-    <article class="card span-12"><h2 class="section-title">Rögzített testsúlyok</h2><div id="weightEntries" class="entries"></div></article>
+     <article class="card span-12"><h2 class="section-title">Rögzített testsúlyok</h2><div id="weightEntries" class="entries"></div></article>
 
-  </div>
+   </div>
 
 </section>
 
@@ -194,15 +206,15 @@
 
 <section id="settings" class="view">
 
-  <div class="grid">
+   <div class="grid">
 
-    <article class="card span-7"><h2 class="section-title">Személyes beállítások</h2><form id="settingsForm" class="form-grid"><div class="field"><label for="startWeight">Kiinduló testsúly</label><div class="input-wrap"><input id="startWeight" type="number" min="30" max="350" step="0.1" required><span class="suffix">kg</span></div></div><div class="field"><label for="targetWeight">Céltestsúly</label><div class="input-wrap"><input id="targetWeight" type="number" min="30" max="350" step="0.1" required><span class="suffix">kg</span></div></div><div class="field"><label for="height">Magasság</label><div class="input-wrap"><input id="height" type="number" min="120" max="230" step="1" required><span class="suffix">cm</span></div></div><div class="field"><label for="sex">Nem</label><select id="sex" required><option value="">Válassz…</option><option value="male">Férfi</option><option value="female">Nő</option><option value="other">Egyéb / nem adom meg</option></select></div><div class="field full"><label for="region">Ország / régió</label><select id="region" required></select></div><div class="field full"><button class="btn" type="submit">Beállítások mentése</button></div></form></article>
+     <article class="card span-7"><h2 class="section-title">Személyes beállítások</h2><form id="settingsForm" class="form-grid"><div class="field"><label for="startWeight">Kiinduló testsúly</label><div class="input-wrap"><input id="startWeight" type="number" min="30" max="350" step="0.1" required><span class="suffix">kg</span></div></div><div class="field"><label for="targetWeight">Céltestsúly</label><div class="input-wrap"><input id="targetWeight" type="number" min="30" max="350" step="0.1" required><span class="suffix">kg</span></div></div><div class="field"><label for="height">Magasság</label><div class="input-wrap"><input id="height" type="number" min="120" max="230" step="1" required><span class="suffix">cm</span></div></div><div class="field"><label for="sex">Nem</label><select id="sex" required><option value="">Válassz…</option><option value="male">Férfi</option><option value="female">Nő</option><option value="other">Egyéb / nem adom meg</option></select></div><div class="field full"><label for="region">Ország / régió</label><select id="region" required></select></div><div class="field full"><button class="btn" type="submit">Beállítások mentése</button></div></form></article>
 
-    <article class="card span-5"><h2 class="section-title">Adatkezelés</h2><p class="sub">Minden adat kizárólag ebben a böngészőben, a localStorage-ban marad.</p><div class="actions"><button class="btn secondary" id="exportBtn">JSON exportálása</button><label class="btn secondary" for="importFile">JSON importálása</label><input class="hidden" id="importFile" type="file" accept="application/json,.json"></div><hr style="border:0;border-top:1px solid var(--line);margin:22px 0"><div class="danger-zone card"><strong>Veszélyzóna</strong><p class="sub">Az összes beállítás, napló és testsúlyadat végleg törlődik ebből a böngészőből.</p><button class="btn danger" id="clearBtn">Összes adat törlése</button></div></article>
+     <article class="card span-5"><h2 class="section-title">Adatkezelés</h2><p class="sub">Minden adat kizárólag ebben a böngészőben, a localStorage-ban marad.</p><div class="actions"><button class="btn secondary" id="exportBtn">JSON exportálása</button><label class="btn secondary" for="importFile">JSON importálása</label><input class="hidden" id="importFile" type="file" accept="application/json,.json"></div><hr style="border:0;border-top:1px solid var(--line);margin:22px 0"><div class="danger-zone card"><strong>Veszélyzóna</strong><p class="sub">Az összes beállítás, napló és testsúlyadat végleg törlődik ebből a böngészőből.</p><button class="btn danger" id="clearBtn">Összes adat törlése</button></div></article>
 
-    <article class="card span-12"><h2 class="section-title">Módszertani megjegyzés</h2><p class="sub">Ez az alkalmazás számítási és naplózási segédeszköz, nem orvosi vagy táplálkozási tanácsadás. A BMI, a 7700 kcal/kg átváltás és a kalóriamérlegből becsült testsúlyváltozás egyszerűsített közelítések.</p></article>
+     <article class="card span-12"><h2 class="section-title">Módszertani megjegyzés</h2><p class="sub">Ez az alkalmazás számítási és naplózási segédeszköz, nem orvosi vagy táplálkozási tanácsadás. A BMI, a 7700 kcal/kg átváltás és a kalóriamérlegből becsült testsúlyváltozás egyszerűsített közelítések.</p></article>
 
-  </div>
+   </div>
 
 </section>
 
@@ -234,27 +246,27 @@ const KCAL_PER_KG=7700;
 
 const BMI_REFERENCE={
 
- 'HU':{name:'Magyarország',male:28.2,female:26.4},'GB':{name:'Egyesült Királyság',male:27.3,female:27.0},
+  'HU':{name:'Magyarország',male:28.2,female:26.4},'GB':{name:'Egyesült Királyság',male:27.3,female:27.0},
 
- 'US':{name:'Egyesült Államok',male:28.8,female:28.9},'DE':{name:'Németország',male:27.3,female:25.8},
+  'US':{name:'Egyesült Államok',male:28.8,female:28.9},'DE':{name:'Németország',male:27.3,female:25.8},
 
- 'AT':{name:'Ausztria',male:26.5,female:24.6},'RO':{name:'Románia',male:27.0,female:26.8},
+  'AT':{name:'Ausztria',male:26.5,female:24.6},'RO':{name:'Románia',male:27.0,female:26.8},
 
- 'SK':{name:'Szlovákia',male:27.3,female:25.5},'HR':{name:'Horvátország',male:28.0,female:26.8},
+  'SK':{name:'Szlovákia',male:27.3,female:25.5},'HR':{name:'Horvátország',male:28.0,female:26.8},
 
- 'PL':{name:'Lengyelország',male:27.4,female:25.9},'CZ':{name:'Csehország',male:27.9,female:26.2},
+  'PL':{name:'Lengyelország',male:27.4,female:25.9},'CZ':{name:'Csehország',male:27.9,female:26.2},
 
- 'FR':{name:'Franciaország',male:25.9,female:24.2},'ES':{name:'Spanyolország',male:27.0,female:24.8},
+  'FR':{name:'Franciaország',male:25.9,female:24.2},'ES':{name:'Spanyolország',male:27.0,female:24.8},
 
- 'IT':{name:'Olaszország',male:26.5,female:24.7},'NL':{name:'Hollandia',male:26.0,female:25.1},
+  'IT':{name:'Olaszország',male:26.5,female:24.7},'NL':{name:'Hollandia',male:26.0,female:25.1},
 
- 'SE':{name:'Svédország',male:26.7,female:25.4},'DK':{name:'Dánia',male:26.2,female:24.4},
+  'SE':{name:'Svédország',male:26.7,female:25.4},'DK':{name:'Dánia',male:26.2,female:24.4},
 
- 'FI':{name:'Finnország',male:26.4,female:25.5},'NO':{name:'Norvégia',male:27.3,female:26.1},
+  'FI':{name:'Finnország',male:26.4,female:25.5},'NO':{name:'Norvégia',male:27.3,female:26.1},
 
- 'IE':{name:'Írország',male:27.9,female:27.0},'EUROPE':{name:'WHO Európai Régió',male:null,female:26.1},
+  'IE':{name:'Írország',male:27.9,female:27.0},'EUROPE':{name:'WHO Európai Régió',male:null,female:26.1},
 
- 'OTHER':{name:'Más ország / nincs beépített referencia',male:null,female:null}
+  'OTHER':{name:'Más ország / nincs beépített referencia',male:null,female:null}
 
 };
 
@@ -302,21 +314,21 @@ function renderAll(){if(!state.settings){$('#setupModal').classList.add('open');
 
 function renderDashboard(){const s=state.settings,w=latestWeight(),current=w.value,bNow=bmi(current,s.height),bGoal=bmi(s.targetWeight,s.height),diff=current-s.targetWeight,goalEnergy=Math.abs(diff)*KCAL_PER_KG,cum=cumulativeBalance(),today=state.energyLogs[localISO()];
 
- $('#dWeight').innerHTML=`${fmt(current,1)} <span class="unit">kg</span>`;$('#dWeightDate').textContent=w.date?`Utolsó mérés: ${prettyDate(w.date)}`:'Kiinduló érték';
+  $('#dWeight').innerHTML=`${fmt(current,1)} <span class="unit">kg</span>`;$('#dWeightDate').textContent=w.date?`Utolsó mérés: ${prettyDate(w.date)}`:'Kiinduló érték';
 
- $('#dTarget').innerHTML=`${fmt(s.targetWeight,1)} <span class="unit">kg</span>`;$('#dDifference').textContent=diff>=0?`${fmt(diff,1)} kg a célig`:`${fmt(Math.abs(diff),1)} kg-mal a cél alatt`;
+  $('#dTarget').innerHTML=`${fmt(s.targetWeight,1)} <span class="unit">kg</span>`;$('#dDifference').textContent=diff>=0?`${fmt(diff,1)} kg a célig`:`${fmt(Math.abs(diff),1)} kg-mal a cél alatt`;
 
- $('#dBmi').textContent=fmt(bNow,1);$('#dBmiCat').textContent=bmiCategory(bNow);$('#bmiNow').textContent=fmt(bNow,1);$('#bmiTarget').textContent=fmt(bGoal,1);$('#goalKcal').textContent=`≈ ${fmt(goalEnergy)} kcal`;
+  $('#dBmi').textContent=fmt(bNow,1);$('#dBmiCat').textContent=bmiCategory(bNow);$('#bmiNow').textContent=fmt(bNow,1);$('#bmiTarget').textContent=fmt(bGoal,1);$('#goalKcal').textContent=`≈ ${fmt(goalEnergy)} kcal`;
 
- const tBal=today?num(today.eaten)-num(today.burned):null;setBalanceCard($('#todayCard'),tBal);$('#dToday').textContent=tBal===null?'–':`${tBal>0?'+':''}${fmt(tBal)} kcal`;$('#dTodayText').textContent=tBal===null?'Még nincs mai bejegyzés':balanceText(tBal);
+  const tBal=today?num(today.eaten)-num(today.burned):null;setBalanceCard($('#todayCard'),tBal);$('#dToday').textContent=tBal===null?'–':`${tBal>0?'+':''}${fmt(tBal)} kcal`;$('#dTodayText').textContent=tBal===null?'Még nincs mai bejegyzés':balanceText(tBal);
 
- setBalanceCard($('#cumCard'),cum);$('#dCumulative').textContent=`${cum>0?'+':''}${fmt(cum)} kcal`;const theory=cum/KCAL_PER_KG;$('#dTheory').textContent=`Elméleti testsúlyváltozás: ${theory>0?'+':''}${fmt(theory,1)} kg (becslés)`;
+  setBalanceCard($('#cumCard'),cum);$('#dCumulative').textContent=`${cum>0?'+':''}${fmt(cum)} kcal`;const theory=cum/KCAL_PER_KG;$('#dTheory').textContent=`Elméleti testsúlyváltozás: ${theory>0?'+':''}${fmt(theory,1)} kg (becslés)`;
 
- const start=num(s.startWeight),target=num(s.targetWeight),total=start-target,moved=start-current,left=current-target;let pct=total===0?100:(moved/total)*100;pct=Math.max(0,Math.min(100,pct));$('#pStart').textContent=`${fmt(start,1)} kg`;
+  const start=num(s.startWeight),target=num(s.targetWeight),total=start-target,moved=start-current,left=current-target;let pct=total===0?100:(moved/total)*100;pct=Math.max(0,Math.min(100,pct));$('#pStart').textContent=`${fmt(start,1)} kg`;
 
- $('#pTarget').textContent=`${fmt(target,1)} kg`;$('#pFill').style.width=`${pct}%`;$('#pFill').parentElement.setAttribute('aria-valuenow',Math.round(pct));$('#pLost').textContent=`${moved>=0?'−':'+'}${fmt(Math.abs(moved),1)} kg`;$('#pLeft').textContent=left>0?`${fmt(left,1)} kg`:left===0?'Cél elérve':`${fmt(Math.abs(left),1)} kg túl`;$('#pPercent').textContent=`${fmt(pct)}%`;
+  $('#pTarget').textContent=`${fmt(target,1)} kg`;$('#pFill').style.width=`${pct}%`;$('#pFill').parentElement.setAttribute('aria-valuenow',Math.round(pct));$('#pLost').textContent=`${moved>=0?'−':'+'}${fmt(Math.abs(moved),1)} kg`;$('#pLeft').textContent=left>0?`${fmt(left,1)} kg`:left===0?'Cél elérve':`${fmt(Math.abs(left),1)} kg túl`;$('#pPercent').textContent=`${fmt(pct)}%`;
 
- renderRegion(bNow);renderEnergyGoalChart()
+  renderRegion(bNow);renderEnergyGoalChart()
 
 }
 
@@ -324,31 +336,31 @@ function setBalanceCard(el,v){el.classList.remove('surplus','neutral');if(v===nu
 
 function renderEnergyGoalChart(){
 
- const s=state.settings,totalGoal=-Math.abs(num(s.startWeight)-num(s.targetWeight))*KCAL_PER_KG,cum=cumulativeBalance();
+  const s=state.settings,totalGoal=-Math.abs(num(s.startWeight)-num(s.targetWeight))*KCAL_PER_KG,cum=cumulativeBalance();
 
- const achieved=Math.max(0,-cum),remaining=Math.max(0,Math.abs(totalGoal)-achieved),pct=Math.abs(totalGoal)?Math.min(100,achieved/Math.abs(totalGoal)*100):100;
+  const achieved=Math.max(0,-cum),remaining=Math.max(0,Math.abs(totalGoal)-achieved),pct=Math.abs(totalGoal)?Math.min(100,achieved/Math.abs(totalGoal)*100):100;
 
- $('#heroRemaining').textContent=fmt(remaining);$('#heroGoal').textContent=`${fmt(Math.abs(totalGoal))} kcal`;$('#heroDone').textContent=`${fmt(achieved)} kcal`;$('#heroPct').textContent=`${fmt(pct)}%`;$('#ringPercent').textContent=`${fmt(pct)}% teljesítve`;$('#goalRing').style.setProperty('--progress',`${pct*3.6}deg`);$('#goalRing').setAttribute('aria-valuenow',Math.round(pct));$('#heroProgressBar').style.width=`${pct}%`;$('#heroMessage').textContent=pct>=100?'Elérted a becsült energiacélt!':pct>=75?'Már a célegyenesben vagy.':pct>=50?'Túl vagy a cél felén.':pct>0?'Jó úton haladsz, minden nap számít.':'Kezdd az első nap rögzítésével.';$('#encouragementText').textContent=pct>=100?'Szép munka. A tényleges testsúly és a közérzet továbbra is fontosabb a becslésnél.':pct>=50?'A kitartó, mérsékelt haladás többet ér, mint a rövid távú szélsőségek.':'A következetesség fontosabb, mint egyetlen tökéletes nap.';
+  $('#heroRemaining').textContent=fmt(remaining);$('#heroGoal').textContent=`${fmt(Math.abs(totalGoal))} kcal`;$('#heroDone').textContent=`${fmt(achieved)} kcal`;$('#heroPct').textContent=`${fmt(pct)}%`;$('#ringPercent').textContent=`${fmt(pct)}% teljesítve`;$('#goalRing').style.setProperty('--progress',`${pct*3.6}deg`);$('#goalRing').setAttribute('aria-valuenow',Math.round(pct));$('#heroProgressBar').style.width=`${pct}%`;$('#heroMessage').textContent=pct>=100?'Elérted a becsült energiacélt!':pct>=75?'Már a célegyenesben vagy.':pct>=50?'Túl vagy a cél felén.':pct>0?'Jó úton haladsz, minden nap számít.':'Kezdd az első nap rögzítésével.';$('#encouragementText').textContent=pct>=100?'Szép munka. A tényleges testsúly és a közérzet továbbra is fontosabb a becslésnél.':pct>=50?'A kitartó, mérsékelt haladás többet ér, mint a rövid távú szélsőségek.':'A következetesség fontosabb, mint egyetlen tökéletes nap.';
 
- const days=[];for(let i=13;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const key=localISO(d),x=state.energyLogs[key];days.push({key,v:x?num(x.eaten)-num(x.burned):0,has:!!x})}
+  const days=[];for(let i=13;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const key=localISO(d),x=state.energyLogs[key];days.push({key,v:x?num(x.eaten)-num(x.burned):0,has:!!x})}
 
- const W=900,H=300,p={l:48,r:12,t:15,b:38},maxAbs=Math.max(500,...days.map(x=>Math.abs(x.v))),zero=p.t+(H-p.t-p.b)/2,scale=(H-p.t-p.b)/2/maxAbs,slot=(W-p.l-p.r)/days.length,bw=Math.max(8,slot*.58);
+  const W=900,H=300,p={l:48,r:12,t:15,b:38},maxAbs=Math.max(500,...days.map(x=>Math.abs(x.v))),zero=p.t+(H-p.t-p.b)/2,scale=(H-p.t-p.b)/2/maxAbs,slot=(W-p.l-p.r)/days.length,bw=Math.max(8,slot*.58);
 
- let grid=`<line class="zero" x1="${p.l}" y1="${zero}" x2="${W-p.r}" y2="${zero}"/><text x="3" y="${zero+4}">0</text><text x="3" y="${p.t+5}">+${fmt(maxAbs)}</text><text x="3" y="${H-p.b}">−${fmt(maxAbs)}</text>`;
+  let grid=`<line class="zero" x1="${p.l}" y1="${zero}" x2="${W-p.r}" y2="${zero}"/><text x="3" y="${zero+4}">0</text><text x="3" y="${p.t+5}">+${fmt(maxAbs)}</text><text x="3" y="${H-p.b}">−${fmt(maxAbs)}</text>`;
 
- let bars=days.map((z,i)=>{const x=p.l+i*slot+(slot-bw)/2,h=Math.abs(z.v)*scale,y=z.v>=0?zero-h:zero,cls=z.v>0?'bar-surplus':'bar-deficit',label=i%2===0?z.key.slice(5).replace('-','.') : '';return `<rect class="${cls}" opacity="${z.has?1:.13}" x="${x}" y="${y}" width="${bw}" height="${Math.max(z.has?2:0,h)}" rx="4"><title>${prettyDate(z.key)}: ${z.has?(z.v>0?'+':'')+fmt(z.v)+' kcal':'nincs adat'}</title></rect><text text-anchor="middle" x="${x+bw/2}" y="${H-12}">${label}</text>`}).join('');
+  let bars=days.map((z,i)=>{const x=p.l+i*slot+(slot-bw)/2,h=Math.abs(z.v)*scale,y=z.v>=0?zero-h:zero,cls=z.v>0?'bar-surplus':'bar-deficit',label=i%2===0?z.key.slice(5).replace('-','.') : '';return `<rect class="${cls}" opacity="${z.has?1:.13}" x="${x}" y="${y}" width="${bw}" height="${Math.max(z.has?2:0,h)}" rx="4"><title>${prettyDate(z.key)}: ${z.has?(z.v>0?'+':'')+fmt(z.v)+' kcal':'nincs adat'}</title></rect><text text-anchor="middle" x="${x+bw/2}" y="${H-12}">${label}</text>`}).join('');
 
- $('#energyChart').innerHTML=`<svg class="hero-chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Napi kalóriamérleg az utolsó 14 napra">${grid}${bars}</svg>`
+  $('#energyChart').innerHTML=`<svg class="hero-chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Napi kalóriamérleg az utolsó 14 napra">${grid}${bars}</svg>`
 
 }
 
 function renderRegion(currentBmi){const s=state.settings,r=BMI_REFERENCE[s.region],value=r&&(s.sex==='male'||s.sex==='female')?r[s.sex]:null;
 
- if(value==null){$('#regionCompare').textContent=s.sex==='other'?'Nemenkénti összehasonlításhoz válaszd ki a férfi vagy nő opciót.':'Ehhez az országhoz/régióhoz nincs beépített, megfelelő nemenkénti referenciaadat.';$('#regionSource').innerHTML='A hiányzó adat helyett az app nem becsül és nem használ másik országot.';return}
+  if(value==null){$('#regionCompare').textContent=s.sex==='other'?'Nemenkénti összehasonlításhoz válaszd ki a férfi vagy nő opciót.':'Ehhez az országhoz/régióhoz nincs beépített, megfelelő nemenkénti referenciaadat.';$('#regionSource').innerHTML='A hiányzó adat helyett az app nem becsül és nem használ másik országot.';return}
 
- const delta=currentBmi-value,relative=delta>0?`${fmt(Math.abs(delta),1)} ponttal magasabb`:delta<0?`${fmt(Math.abs(delta),1)} ponttal alacsonyabb`:'megegyezik';$('#regionCompare').innerHTML=`A BMI-d <strong>${fmt(currentBmi,1)}</strong>. Ez a(z) ${r.name} referencia-populációjának átlagos BMI-jénél <strong>${relative}</strong>. Ez összehasonlítás, nem egészségügyi minősítés.`;
+  const delta=currentBmi-value,relative=delta>0?`${fmt(Math.abs(delta),1)} ponttal magasabb`:delta<0?`${fmt(Math.abs(delta),1)} ponttal alacsonyabb`:'megegyezik';$('#regionCompare').innerHTML=`A BMI-d <strong>${fmt(currentBmi,1)}</strong>. Ez a(z) ${r.name} referencia-populációjának átlagos BMI-jénél <strong>${relative}</strong>. Ez összehasonlítás, nem egészségügyi minősítés.`;
 
- const url=s.sex==='male'?SOURCE_URLS.male:SOURCE_URLS.female;$('#regionSource').innerHTML=`Referencia: WHO Global Health Observatory / NCD-RisC, OWID feldolgozás, 2016, életkor-standardizált, ${s.sex==='male'?'férfi':'női'} felnőtt adat. <a class="source-link" href="${url}" target="_blank" rel="noopener">Forrás megnyitása</a>.`}
+  const url=s.sex==='male'?SOURCE_URLS.male:SOURCE_URLS.female;$('#regionSource').innerHTML=`Referencia: WHO Global Health Observatory / NCD-RisC, OWID feldolgozás, 2016, életkor-standardizált, ${s.sex==='male'?'férfi':'női'} felnőtt adat. <a class="source-link" href="${url}" target="_blank" rel="noopener">Forrás megnyitása</a>.`}
 
 function renderEnergy(){const date=$('#logDate').value||localISO();const item=state.energyLogs[date];if(item){$('#burned').value=item.burned;$('#eaten').value=item.eaten}updateEnergyPreview();const arr=Object.entries(state.energyLogs).sort(([a],[b])=>b.localeCompare(a));$('#energyEntries').innerHTML=arr.length?arr.map(([d,x])=>{const bal=num(x.eaten)-num(x.burned);return`<div class="entry"><span class="date">${prettyDate(d)}</span><span class="energy">🔥 ${fmt(x.burned)} · 🍴 ${fmt(x.eaten)}</span><strong style="color:${bal<=0?'var(--good)':'var(--bad)'}">${balanceText(bal)}</strong><button data-del-energy="${d}" aria-label="Bejegyzés törlése">×</button></div>`}).join(''):'<div class="empty">Még nincs rögzített nap.</div>'}
 
